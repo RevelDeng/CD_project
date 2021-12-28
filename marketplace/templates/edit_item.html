@@ -8,6 +8,9 @@
     </head>
     <body>
         <div id="wrapper">
+            <!-- <div id="topdiv">
+                <a href="admin-logout/">Log Out</a>
+            </div> -->
             <ul class="messages">
                 {% for message in messages %}
                     <li {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</li>
@@ -16,12 +19,15 @@
             <div class="form">
                 <form action="update-item/{{item.id}}/" method="post">
                     {% csrf_token %}
-                    <p>
+                    <!-- <p>
                         <label>
                             Item Section
-                            <input name="item_section" required>
+                            <select name="item_section" required>
+                                <option hidden value="">Select an option</option>
+                                <option value=""></option>
+                            </select>
                         </label>
-                    </p>
+                    </p> -->
                     <p>
                         <label>
                             Item Name

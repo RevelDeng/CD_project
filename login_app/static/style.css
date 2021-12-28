@@ -30,6 +30,7 @@ label {
     flex-flow: row;
     justify-content: space-around;
     width: 100%;
+    padding-top: 1%;
     background-color: rgb(89, 224, 118);
 }
 
