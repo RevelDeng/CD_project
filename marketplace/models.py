@@ -40,3 +40,12 @@ class User_Item_Count(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     def __repr__(self) -> str:
         return f"<User_Item_Count object: {self.user.first_name} {self.item.name} {self.orders} ({self.id})>"
+
+class Section(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    items = models.ManyToManyField(Item, related_name="sections")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    def __repr__(self) -> str:
+        return f"<Section object: {self.name} ({self.id})>"

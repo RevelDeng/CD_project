@@ -29,8 +29,7 @@ label {
     display: flex;
     flex-flow: row;
     justify-content: space-around;
-    margin-top: 5px;
-    width: 80%;
+    width: 100%;
     background-color: rgb(89, 224, 118);
 }
 
@@ -38,6 +37,7 @@ label {
     text-align: center;
     border: 2px solid rgb(89, 224, 118);
     padding: 5px;
+    margin-top: 5px;
 }
 
 .bold {
