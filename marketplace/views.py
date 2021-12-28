@@ -13,7 +13,7 @@ def add_item(request):
     else:
         Item.objects.create(
             name=request.POST['item_name'], description=request.POST['item_description'],
-            carbon_offset_in_trees=request.POST['item_carbon_offset'], cost=request.POST['item_cost']
+            carbon_offset_in_trees=request.POST['item_carbon_offset'], cost=request.POST['item_cost'], sections=request.POST['item_section']
         )
         return redirect('admin_page')
 
@@ -35,6 +35,7 @@ def update_item(request, item_id, same_item_id):
         item.description = request.POST['item_description']
         item.carbon_offset_in_trees = request.POST['item_carbon_offset']
         item.cost = request.POST['item_cost']
+        item.sections=request.POST['item_section']
         item.save()
         return redirect('admin_page')
 

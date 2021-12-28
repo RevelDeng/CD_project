@@ -18,6 +18,12 @@
                     {% csrf_token %}
                     <p>
                         <label>
+                            Item Section
+                            <input name="item_section" required>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
                             Item Name
                             <input name="item_name" value="{{item.name}}" required>
                         </label>
