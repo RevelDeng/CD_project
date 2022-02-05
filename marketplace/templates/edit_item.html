@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Edit Item</title>
+        {% load static %}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+    </head>
+    <body>
+        <div id="wrapper">
+            <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</li>
+                {% endfor %}
+            </ul>
+            <div class="admin_form">
+                <form action="update-item/{{item.id}}/" method="post">
+                    {% csrf_token %}
+                    <p>
+                        <label>
+                            Item category
+                            <select name="item_category" required>
+                                <option hidden value="">Select an option</option>
+                                {% for category in categories %}
+                                    <option value="{{category.id}}">{{category.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            Item Name
+                            <input name="item_name" value="{{item.name}}" required>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            Item Description
+                            <textarea name="item_description" required>{{item.description}}</textarea>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            Carbon Offset in Trees
+                            <select name="item_carbon_offset" required>
+                                <option hidden value="">Select an option</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            Cost
+                            <input name="item_cost" type="number" min="0.01" max="999.99" step="0.01" value="{{item.cost}}" required>
+                        </label>
+                    </p>
+                    <button type="submit">Update Item</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
