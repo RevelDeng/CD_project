@@ -41,31 +41,31 @@ class User_Item_Count(models.Model):
     def __repr__(self) -> str:
         return f"<User_Item_Count object: {self.user.first_name} {self.item.name} {self.orders} ({self.id})>"
 
-class CategoryManager(models.Manager):
-    def validate(self, postData):
-        errors = {}
-        if len(postData['category_name']) < 2:
-            errors['category_name'] = "New category name must be at least 2 characters."
-        for category in Category.objects.all():
-            if postData['category_name'] == category.name:
-                errors['unique_category_name'] = "A category with this name has already been created."
-        if len(postData['category_description']) < 2:
-            errors['category_description'] = "New category description must be at least 2 characters."
-        return errors
-    def validate_edit(self, postData):
-        errors = {}
-        if len(postData['category_name']) < 2:
-            errors['category_name'] = "New category name must be at least 2 characters."
-        if len(postData['category_description']) < 2:
-            errors['category_description'] = "New category description must be at least 2 characters."
-        return errors
+# class CategoryManager(models.Manager):
+#     def validate(self, postData):
+#         errors = {}
+#         if len(postData['category_name']) < 2:
+#             errors['category_name'] = "New category name must be at least 2 characters."
+#         for category in Category.objects.all():
+#             if postData['category_name'] == category.name:
+#                 errors['unique_category_name'] = "A category with this name has already been created."
+#         if len(postData['category_description']) < 2:
+#             errors['category_description'] = "New category description must be at least 2 characters."
+#         return errors
+#     def validate_edit(self, postData):
+#         errors = {}
+#         if len(postData['category_name']) < 2:
+#             errors['category_name'] = "New category name must be at least 2 characters."
+#         if len(postData['category_description']) < 2:
+#             errors['category_description'] = "New category description must be at least 2 characters."
+#         return errors
 
-class Category(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.TextField()
-    items = models.ManyToManyField(Item, related_name="categories")
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    objects = CategoryManager()
-    def __repr__(self) -> str:
-        return f"<Category object: {self.name} {self.items} ({self.id})>"
+# class Category(models.Model):
+#     name = models.CharField(max_length=255)
+#     description = models.TextField()
+#     items = models.ManyToManyField(Item, related_name="categories")
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+#     objects = CategoryManager()
+#     def __repr__(self) -> str:
+#         return f"<Category object: {self.name} {self.items} ({self.id})>"

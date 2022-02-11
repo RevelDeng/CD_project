@@ -17,11 +17,11 @@
                 <p class="bold">Carbon Items Catalog</p>
                 {% for item in items %}
                     <div class="catalog_item">
-                        {% for category in categories %}
+                        <!-- {% for category in categories %} -->
                             <!-- {% if 'item' in category.items.all %} -->
-                                <p>Category: {{category.name}}</p>
+                                <!-- <p>Category: {{category.name}}</p> -->
                             <!-- {% endif %} -->
-                        {% endfor %}
+                        <!-- {% endfor %} -->
                         <p>Item: {{item.name}}</p>
                         <p>Description: {{item.description}}</p>
                         <p>Carbon Offset in Trees: {{item.carbon_offset_in_trees}}</p>
@@ -72,7 +72,7 @@
                             <input name="item_cost" type="number" min="0.01" max="999.99" step="0.01" required>
                         </label>
                     </p>
-                    <p>
+                    <!-- <p>
                         <label>
                             Category
                             <select name="item_category" required>
@@ -82,11 +82,11 @@
                                 {% endfor %}
                             </select>
                         </label>
-                    </p>
+                    </p> -->
                     <button type="submit">Add Item</button>
                 </form>
             </div>
-            <div class="admin_form">
+            <!-- <div class="admin_form">
                 <p class="bold">Add Product Category</p>
                 <ul class="messages">
                     {% for message in messages %}
@@ -111,7 +111,7 @@
                     </p>
                     <button type="submit">Add Category</button>
                 </form>
-            </div>
+            </div> -->
             <div class="orders">
                 <p class="bold">All Orders</p>
                 {% for user in users %}

@@ -85,34 +85,34 @@ def admin_index(request):
 
 def admin_page(request):
     if 'admin_id' in request.session:
-        categories = apps.get_model('marketplace.Category').objects.all()
-        if categories:
-            shop_items = apps.get_model('marketplace.Item').objects.all()
-            if shop_items:
-                user_items = apps.get_model('marketplace.User_Item_Count').objects.all()
-                if user_items:
-                    context = {
-                        'admin': Admin.objects.get(id=request.session['admin_id']),
-                        'items': reversed(shop_items),
-                        'user_items': user_items,
-                        'users': User.objects.all(),
-                        'categories': categories
-                    }
-                    return render(request, 'admin_page.html', context)
-                else:
-                    context = {
-                        'admin': Admin.objects.get(id=request.session['admin_id']),
-                        'items': reversed(shop_items),
-                        'categories': categories
-                    }
-                    return render(request, 'admin_page.html', context)
-            else:
-                context = {
-                    'admin': Admin.objects.get(id=request.session['admin_id']),
-                    'categories': categories
-                }
-                return render(request, 'admin_page.html', context)
-        else:
+        # categories = apps.get_model('marketplace.Category').objects.all()
+        # if categories:
+        #     shop_items = apps.get_model('marketplace.Item').objects.all()
+        #     if shop_items:
+        #         user_items = apps.get_model('marketplace.User_Item_Count').objects.all()
+        #         if user_items:
+        #             context = {
+        #                 'admin': Admin.objects.get(id=request.session['admin_id']),
+        #                 'items': reversed(shop_items),
+        #                 'user_items': user_items,
+        #                 'users': User.objects.all(),
+        #                 'categories': categories
+        #             }
+        #             return render(request, 'admin_page.html', context)
+        #         else:
+        #             context = {
+        #                 'admin': Admin.objects.get(id=request.session['admin_id']),
+        #                 'items': reversed(shop_items),
+        #                 'categories': categories
+        #             }
+        #             return render(request, 'admin_page.html', context)
+        #     else:
+        #         context = {
+        #             'admin': Admin.objects.get(id=request.session['admin_id']),
+        #             'categories': categories
+        #         }
+        #         return render(request, 'admin_page.html', context)
+        # else:
             shop_items = apps.get_model('marketplace.Item').objects.all()
             if shop_items:
                 user_items = apps.get_model('marketplace.User_Item_Count').objects.all()
