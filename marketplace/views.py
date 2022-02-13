@@ -68,6 +68,9 @@ def buy_items(request, item_id, user_id):
         user_item[0].save()
         return redirect('marketplace')
 
+def add_to_cart(request, item_id, user_id):
+    pass
+
 # def add_category(request):
 #     errors = Category.objects.validate(request.POST)
 #     if len(errors) > 0:

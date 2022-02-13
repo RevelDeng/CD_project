@@ -6,5 +6,6 @@ urlpatterns = [
     path('admin/admin-page/edit-item/<int:item_id>/update-item/<int:same_item_id>/', views.update_item),
     path('admin/admin-page/delete-item/<int:id>/', views.delete_item),
     path('marketplace/buy-items/<int:item_id>/<int:user_id>/', views.buy_items),
+    # path('marketplace/add-to-cart/<int:item_id>/<int:user_id>/', views.add_to_cart)
     # path('admin/admin-page/add-category/', views.add_category)
 ]

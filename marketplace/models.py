@@ -41,6 +41,14 @@ class User_Item_Count(models.Model):
     def __repr__(self) -> str:
         return f"<User_Item_Count object: {self.user.first_name} {self.item.name} {self.orders} ({self.id})>"
 
+class Cart_Item_Count(models.Model):
+    user = models.ForeignKey('login_app.User', on_delete=models.CASCADE)
+    item = models.ManyToManyField(Item, related_name="carts")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    def __repr__(self) -> str:
+        return f"<Cart object: {self.user.first_name} ({self.id})>"
+
 # class CategoryManager(models.Manager):
 #     def validate(self, postData):
 #         errors = {}
