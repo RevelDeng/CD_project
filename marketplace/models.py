@@ -20,12 +20,20 @@ class ItemManager(models.Manager):
             errors['item_description'] = "New item description must be at least 2 characters."
         return errors
 
+class Cart(models.Model):
+    user = models.ForeignKey('login_app.User', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    def __repr__(self) -> str:
+        return f"<Cart object: {self.user.first_name} ({self.id})>"
+
 class Item(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     carbon_offset_in_trees = models.IntegerField()
     cost = models.DecimalField(max_digits=5, decimal_places=2)
     purchases = models.ManyToManyField('login_app.User', through="User_Item_Count")
+    carts = models.ManyToManyField(Cart, through="Cart_Item_Count")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = ItemManager()
@@ -42,12 +50,13 @@ class User_Item_Count(models.Model):
         return f"<User_Item_Count object: {self.user.first_name} {self.item.name} {self.orders} ({self.id})>"
 
 class Cart_Item_Count(models.Model):
-    user = models.ForeignKey('login_app.User', on_delete=models.CASCADE)
-    item = models.ManyToManyField(Item, related_name="carts")
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, default=None)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, default=None)
+    quantity = models.IntegerField(default=None)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     def __repr__(self) -> str:
-        return f"<Cart object: {self.user.first_name} ({self.id})>"
+        return f"<Cart Item object: {self.cart.user.first_name} {self.item.name} ({self.id})>"
 
 # class CategoryManager(models.Manager):
 #     def validate(self, postData):
