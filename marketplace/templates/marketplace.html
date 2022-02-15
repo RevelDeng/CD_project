@@ -21,7 +21,7 @@
                         <p>Carbon Offset in Trees: {{item.carbon_offset_in_trees}}</p>
                         <p>Price: ${{item.cost}}</p>
                         <div class="form">
-                            <form action="buy-items/{{item.id}}/{{user.id}}/" method="post">
+                            <form action="add-to-cart/{{item.id}}/{{user.id}}/" method="post">
                                 {% csrf_token %}
                                 <p>
                                     <label>
@@ -29,7 +29,6 @@
                                         <input name="purchase_quantity" type="number" min="1" max="3" step="1" required>
                                     </label>
                                 </p>
-                                <!-- <p><button type="submit">Buy Now</button></p> -->
                                 <p><button type="submit">Add to Cart</button></p>
                             </form>
                         </div>
@@ -38,8 +37,9 @@
             </div>
             <div id="cart">
                 Cart
-                <!-- # of items in cart -->
-                <!-- <a href="">View Cart</a> -->
+                <form action="view-cart/{{user.id}}/" method="get">
+                    <button type="submit">View Cart</button>
+                </form>
             </div>
             <div class="orders">
                 <p class="bold">Your Inventory</p>

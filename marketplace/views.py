@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.apps import apps
@@ -69,7 +70,36 @@ def buy_items(request, item_id, user_id):
         return redirect('marketplace')
 
 def add_to_cart(request, item_id, user_id):
-    cart = Cart.objects.filter(user=apps.get_model('login_app.User').objects.get(id=user_id))
+    cart = Cart.objects.get(user=apps.get_model('login_app.User').objects.get(id=user_id))
+    cart_item = Cart_Item_Count.objects.filter(cart=cart, item=Item.objects.get(id=item_id))
+    if not cart_item:
+        Cart_Item_Count.objects.create(
+            cart=cart, item=Item.objects.get(id=item_id), quantity=request.POST['purchase_quantity']
+        )
+        return redirect('marketplace')
+    else:
+        cart_item[0].quantity += int(request.POST['purchase_quantity'])
+        cart_item[0].save()
+        return redirect('marketplace')
+
+def view_cart(request, user_id):
+    cart = Cart.objects.get(user=apps.get_model('login_app.User').objects.get(id=user_id))
+    cart_items = Cart_Item_Count.objects.filter(cart=cart)
+    if cart_items:
+        total_cost = 0
+        for item in cart_items:
+            total_cost += item.item.cost * item.quantity
+        context = {
+            'user': apps.get_model('login_app.User').objects.get(id=user_id),
+            'cart_items': cart_items,
+            'total_cost': total_cost
+        }
+        return render(request, 'cart.html', context)
+    else:
+        context = {
+            'user': apps.get_model('login_app.User').objects.get(id=user_id)
+        }
+        return render(request, 'cart.html', context)
 
 # def add_category(request):
 #     errors = Category.objects.validate(request.POST)

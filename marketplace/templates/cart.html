@@ -15,6 +15,10 @@
         </div>
         <div>
             <p class="bold">{{user.first_name}}'s Cart</p>
+            {% for item in cart_items %}
+                <p>{{item.item.name}}: {{item.quantity}}</p>
+            {% endfor %}
+            <p>Cart total: ${{total_cost}}</p>
             <!-- <button>Checkout</button> -->
         </div>
     </body>

@@ -81,6 +81,10 @@ def logout(request):
     del request.session['user_id']
     return redirect('index')
 
+def cart_logout(request, user_id):
+    del request.session['user_id']
+    return redirect('index')
+
 def admin_index(request):
     return render(request, 'admin_index.html')
 
