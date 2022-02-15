@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.apps import apps
-from .models import Item, User_Item_Count
+from .models import Item, User_Item_Count, Cart, Cart_Item_Count
 
 # Create your views here.
 def add_item(request):
@@ -69,7 +69,7 @@ def buy_items(request, item_id, user_id):
         return redirect('marketplace')
 
 def add_to_cart(request, item_id, user_id):
-    pass
+    cart = Cart.objects.filter(user=apps.get_model('login_app.User').objects.get(id=user_id))
 
 # def add_category(request):
 #     errors = Category.objects.validate(request.POST)

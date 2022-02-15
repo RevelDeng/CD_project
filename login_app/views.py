@@ -53,6 +53,7 @@ def add_user(request):
                 request.POST["password"].encode(), bcrypt.gensalt()
             ).decode()
         )
+        apps.get_model('marketplace.Cart').objects.create(user=User.objects.last())
         request.session['user_id'] = User.objects.last().id
         return redirect('marketplace')
 

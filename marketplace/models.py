@@ -21,7 +21,7 @@ class ItemManager(models.Manager):
         return errors
 
 class Cart(models.Model):
-    user = models.ForeignKey('login_app.User', on_delete=models.CASCADE)
+    user = models.ForeignKey('login_app.User', on_delete=models.CASCADE, related_name="cart")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     def __repr__(self) -> str:
