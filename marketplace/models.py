@@ -56,7 +56,7 @@ class Cart_Item_Count(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     def __repr__(self) -> str:
-        return f"<Cart Item object: {self.cart.user.first_name} {self.item.name} ({self.id})>"
+        return f"<Cart Item object: {self.cart.user.first_name} {self.item.name} {self.quantity} ({self.id})>"
 
 # class CategoryManager(models.Manager):
 #     def validate(self, postData):
