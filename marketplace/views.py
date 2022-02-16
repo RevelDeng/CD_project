@@ -57,17 +57,24 @@ def delete_item(request, id):
     Item.objects.get(id=id).delete()
     return redirect('admin_page')
 
-def buy_items(request, item_id, user_id):
-    user_item = User_Item_Count.objects.filter(user=apps.get_model('login_app.User').objects.get(id=user_id), item=Item.objects.get(id=item_id))
-    if not user_item:
-        User_Item_Count.objects.create(
-            user=apps.get_model('login_app.User').objects.get(id=user_id), item=Item.objects.get(id=item_id), orders=request.POST['purchase_quantity']
-        )
-        return redirect('marketplace')
+def buy_items(request, user_id):
+    # user_item = User_Item_Count.objects.filter(user=apps.get_model('login_app.User').objects.get(id=user_id), item=Item.objects.get(id=item_id))
+    # if not user_item:
+    #     User_Item_Count.objects.create(
+    #         user=apps.get_model('login_app.User').objects.get(id=user_id), item=Item.objects.get(id=item_id), orders=request.POST['purchase_quantity']
+    #     )
+    #     return redirect('marketplace')
+    # else:
+    #     user_item[0].orders += int(request.POST['purchase_quantity'])
+    #     user_item[0].save()
+    #     return redirect('marketplace')
+    cart_items = Cart_Item_Count.objects.filter(cart=Cart.objects.get(user=apps.get_model('login_app.User').objects.get(id=user_id)))
+    if cart_items:
+        user_item = User_Item_Count.objects.filter(user=apps.get_model('login_app.User').objects.get(id=user_id))
+        for item in cart_items:
+            if 
     else:
-        user_item[0].orders += int(request.POST['purchase_quantity'])
-        user_item[0].save()
-        return redirect('marketplace')
+        return redirect('cart')
 
 def add_to_cart(request, item_id, user_id):
     cart = Cart.objects.get(user=apps.get_model('login_app.User').objects.get(id=user_id))
