@@ -70,9 +70,18 @@ def buy_items(request, user_id):
     #     return redirect('marketplace')
     cart_items = Cart_Item_Count.objects.filter(cart=Cart.objects.get(user=apps.get_model('login_app.User').objects.get(id=user_id)))
     if cart_items:
-        user_item = User_Item_Count.objects.filter(user=apps.get_model('login_app.User').objects.get(id=user_id))
-        for item in cart_items:
-            if 
+        user_items = User_Item_Count.objects.filter(user=apps.get_model('login_app.User').objects.get(id=user_id))
+        # user_has_item = False
+        for cart_item in cart_items:
+            for user_item in user_items:
+                if cart_item.item.id == user_item.item.id:
+                    # user_has_item = True
+                    # user_item.orders += int()
+                else:
+                    User_Item_Count.objects.create(
+                        user=apps.get_model('login_app.User').objects.get(id=user_id)
+                    )
+        return redirect('marketplace')
     else:
         return redirect('cart')
 
