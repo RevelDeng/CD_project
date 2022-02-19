@@ -58,6 +58,7 @@ def delete_item(request, id):
     return redirect('admin_page')
 
 def buy_items(request, user_id):
+    user = apps.get_model('login_app.User').objects.get(id=user_id)
     # user_item = User_Item_Count.objects.filter(user=apps.get_model('login_app.User').objects.get(id=user_id), item=Item.objects.get(id=item_id))
     # if not user_item:
     #     User_Item_Count.objects.create(
@@ -68,9 +69,8 @@ def buy_items(request, user_id):
     #     user_item[0].orders += int(request.POST['purchase_quantity'])
     #     user_item[0].save()
     #     return redirect('marketplace')
-    cart_items = Cart_Item_Count.objects.filter(cart=Cart.objects.get(user=apps.get_model('login_app.User').objects.get(id=user_id)))
+    cart_items = Cart_Item_Count.objects.filter(cart=Cart.objects.get(user=user))
     if cart_items:
-        user_items = User_Item_Count.objects.filter(user=apps.get_model('login_app.User').objects.get(id=user_id))
         for cart_item in cart_items:
             # for user_item in user_items:
             #     if cart_item.item.id == user_item.item.id:
@@ -81,7 +81,15 @@ def buy_items(request, user_id):
             #             user=apps.get_model('login_app.User').objects.get(id=user_id), item=Item.objects.get(id=request.POST['item_id'],
             #             orders=request.POST['purchase_quantity'])
             #         )
-            if cart_item.item.purchases
+            # if cart_item.item.purchases
+            if user in cart_item.item.purchases.all():
+                User_Item_Count.objects.filter(user=user, item=cart_item.item).orders += int(request.POST['purchase_quantity'])
+                User_Item_Count.objects.filter(user=user, item=cart_item.item).save()
+            else:
+                User_Item_Count.objects.create(
+                        user=user, item=Item.objects.get(id=request.POST['item_id'],
+                        orders=request.POST['purchase_quantity'])
+                    )
         return redirect('marketplace')
     else:
         return redirect('cart')

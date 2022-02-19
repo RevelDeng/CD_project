@@ -15,7 +15,7 @@
         </div>
         <div>
             <p class="bold">{{user.first_name}}'s Cart</p>
-            <form action="buy-items/{{user_id}}/" method="post">
+            <form action="buy-items/" method="post">
                 {% csrf_token %}
                 {% for item in cart_items %}
                     <p>
