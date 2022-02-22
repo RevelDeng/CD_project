@@ -82,16 +82,17 @@ def buy_items(request, user_id):
             #             orders=request.POST['purchase_quantity'])
             #         )
             # if cart_item.item.purchases
-            if user in cart_item.item.purchases.all():
+            print(cart_item.item.purchases.all())
+            # if user in cart_item.item.purchases.all():
                 # User_Item_Count.objects.get(user=user, item=Item.objects.get(id=cart_item.item.id)).purchases += int(request.POST['purchase_quantity'])
                 # User_Item_Count.objects.get(user=user, item=Item.objects.get(id=cart_item.item.id)).save()
-                return redirect('cart')
-            else:
+                # return redirect('cart')
+            # else:
                 # User_Item_Count.objects.create(
                 #         user=user, item=Item.objects.get(id=request.POST['item_id'],
                 #         orders=request.POST['purchase_quantity'])
                 #     )
-                return redirect('marketplace')
+                # return redirect('marketplace')
         return redirect('marketplace')
     else:
         return redirect('cart')
