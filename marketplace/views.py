@@ -87,8 +87,7 @@ def buy_items(request, user_id):
                 # return redirect('cart', user_id)
             else:
                 User_Item_Count.objects.create(
-                        user=user, item=Item.objects.get(id=request.POST['item_id'],
-                        orders=request.POST['purchase_quantity'])
+                        user=user, item=Item.objects.get(id=request.POST['item_id']), orders=request.POST['purchase_quantity']
                 )
                 # return redirect('marketplace')
         return redirect('marketplace')
