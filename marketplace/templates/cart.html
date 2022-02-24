@@ -20,7 +20,6 @@
                 {% for item in cart_items %}
                     <p>
                         {{item.item.name}}:
-                        <input type="hidden" value="{{item.item.id}}" name="item_id">
                         <label>
                             Quantity:
                             <input name="purchase_quantity" type="number" min="1" max="10" step="1" value="{{item.quantity}}">
