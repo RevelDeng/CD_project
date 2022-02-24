@@ -17,7 +17,7 @@ def add_item(request):
             carbon_offset_in_trees=request.POST['item_carbon_offset'], cost=request.POST['item_cost']
         )
         # Item.objects.last().categories.add(Category.objects.get(id=request.POST['item_category']))
-        Item.objects.last().save()
+        # Item.objects.last().save()
         return redirect('admin_page')
 
 def edit_item(request, item_id):
@@ -84,17 +84,13 @@ def buy_items(request, user_id):
             if user in cart_item.item.purchases.all():
                 User_Item_Count.objects.get(user=user, item=Item.objects.get(id=cart_item.item.id)).orders += int(request.POST['purchase_quantity'])
                 User_Item_Count.objects.get(user=user, item=Item.objects.get(id=cart_item.item.id)).save()
-                return redirect('cart', user_id)
+                # return redirect('cart', user_id)
             else:
                 User_Item_Count.objects.create(
                         user=user, item=Item.objects.get(id=request.POST['item_id'],
                         orders=request.POST['purchase_quantity'])
                 )
-                # User_Item_Count.objects.create(
-                #     user=apps.get_model('login_app.User').objects.get(id=user_id), item=Item.objects.get(id=cart_item.item.id), 
-                #     orders=request.POST['purchase_quantity']
-                # )
-                return redirect('marketplace')
+                # return redirect('marketplace')
         return redirect('marketplace')
     else:
         return redirect('cart', user_id)
