@@ -106,6 +106,10 @@ def view_cart(request, user_id):
         }
         return render(request, 'cart.html', context)
 
+def remove_from_cart(request, user_id, item_id):
+    cart = Cart.objects.get(user=apps.get_model('login_app.User').objects.get(id=user_id))
+    cart_item = Cart_Item_Count.objects.filter(cart=cart, item=Item.objects.get(id=item_id))
+
 # def add_category(request):
 #     errors = Category.objects.validate(request.POST)
 #     if len(errors) > 0:
