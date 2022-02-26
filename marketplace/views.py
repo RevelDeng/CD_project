@@ -64,11 +64,11 @@ def buy_items(request, user_id):
         for cart_item in cart_items:
             user_item = User_Item_Count.objects.filter(user=user, item=Item.objects.get(id=cart_item.item.id))
             if user_item:
-                user_item[0].orders += int(request.POST['purchase_quantity'])
+                user_item[0].orders += int(request.POST['{{item.item.name}}_quantity'])
                 user_item[0].save()
             else:
                 User_Item_Count.objects.create(
-                        user=user, item=Item.objects.get(id=cart_item.item.id), orders=request.POST['purchase_quantity']
+                        user=user, item=Item.objects.get(id=cart_item.item.id), orders=request.POST['{{item.item.name}}_quantity']
                 )
         return redirect('marketplace')
     else:
