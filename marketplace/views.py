@@ -66,10 +66,12 @@ def buy_items(request, user_id):
             if user_item:
                 user_item[0].orders += int(request.POST[cart_item.item.name])
                 user_item[0].save()
+                cart_item.delete()
             else:
                 User_Item_Count.objects.create(
                         user=user, item=Item.objects.get(id=cart_item.item.id), orders=request.POST[cart_item.item.name]
                 )
+                cart_item.delete()
         return redirect('marketplace')
     else:
         return redirect('cart', user_id)
