@@ -112,7 +112,7 @@ def remove_from_cart(request, user_id, item_id):
     cart = Cart.objects.get(user=apps.get_model('login_app.User').objects.get(id=user_id))
     cart_item = Cart_Item_Count.objects.filter(cart=cart, item=Item.objects.get(id=item_id))
     cart_item[0].delete()
-    return render(request, 'cart.html', user_id)
+    return redirect(request, 'cart.html', user_id)
 
 # def add_category(request):
 #     errors = Category.objects.validate(request.POST)
