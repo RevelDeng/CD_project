@@ -12,27 +12,33 @@ def marketplace(request):
     if 'user_id' in request.session:
         shop_items = apps.get_model('marketplace.Item').objects.all()
         if shop_items:
-            user_items = apps.get_model('marketplace.User_Item_Count').objects.filter(user=User.objects.get(id=request.session['user_id']))
-            if user_items:
-                total_carbon_offset = 0
-                total_cost = 0
-                for item in user_items:
-                    total_carbon_offset += item.item.carbon_offset_in_trees * item.orders
-                    total_cost += item.item.cost * item.orders
-                context = {
-                    'items': reversed(shop_items),
-                    'user': User.objects.get(id=request.session['user_id']),
-                    'user_items': user_items,
-                    'total_carbon_offset': total_carbon_offset,
-                    'total_cost': total_cost
-                }
-                return render(request, 'marketplace.html', context)
+            cart_items = apps.get_model('marketplace.Cart_Item_Count').objects.filter(
+                cart=apps.get_model('marketplace.Cart').objects.get(user=User.objects.get(id=request.session['user_id']))
+            )
+            if cart_items:
+                user_items = apps.get_model('marketplace.User_Item_Count').objects.filter(user=User.objects.get(id=request.session['user_id']))
+                if user_items:
+                    total_carbon_offset = 0
+                    total_cost = 0
+                    for item in user_items:
+                        total_carbon_offset += item.item.carbon_offset_in_trees * item.orders
+                        total_cost += item.item.cost * item.orders
+                    context = {
+                        'items': reversed(shop_items),
+                        'user': User.objects.get(id=request.session['user_id']),
+                        'user_items': user_items,
+                        'total_carbon_offset': total_carbon_offset,
+                        'total_cost': total_cost
+                    }
+                    return render(request, 'marketplace.html', context)
+                else:
+                    context = {
+                        'items': reversed(shop_items),
+                        'user': User.objects.get(id=request.session['user_id']),
+                    }
+                    return render(request, 'marketplace.html', context)
             else:
-                context = {
-                    'items': reversed(shop_items),
-                    'user': User.objects.get(id=request.session['user_id']),
-                }
-                return render(request, 'marketplace.html', context)
+                pass
         else:
             context = {
                 'user': User.objects.get(id=request.session['user_id'])
