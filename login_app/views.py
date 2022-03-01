@@ -25,6 +25,7 @@ def marketplace(request):
                         total_cost += item.item.cost * item.orders
                     context = {
                         'items': reversed(shop_items),
+                        'cart_items': reversed(cart_items),
                         'user': User.objects.get(id=request.session['user_id']),
                         'user_items': user_items,
                         'total_carbon_offset': total_carbon_offset,
@@ -38,7 +39,27 @@ def marketplace(request):
                     }
                     return render(request, 'marketplace.html', context)
             else:
-                pass
+                user_items = apps.get_model('marketplace.User_Item_Count').objects.filter(user=User.objects.get(id=request.session['user_id']))
+                if user_items:
+                    total_carbon_offset = 0
+                    total_cost = 0
+                    for item in user_items:
+                        total_carbon_offset += item.item.carbon_offset_in_trees * item.orders
+                        total_cost += item.item.cost * item.orders
+                    context = {
+                        'items': reversed(shop_items),
+                        'user': User.objects.get(id=request.session['user_id']),
+                        'user_items': user_items,
+                        'total_carbon_offset': total_carbon_offset,
+                        'total_cost': total_cost
+                    }
+                    return render(request, 'marketplace.html', context)
+                else:
+                    context = {
+                        'items': reversed(shop_items),
+                        'user': User.objects.get(id=request.session['user_id']),
+                    }
+                    return render(request, 'marketplace.html', context)
         else:
             context = {
                 'user': User.objects.get(id=request.session['user_id'])

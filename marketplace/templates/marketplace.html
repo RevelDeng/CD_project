@@ -38,7 +38,11 @@
             </div>
             <div id="cart">
                 <div id="cart_counter">
-                    <!-- Cart () -->
+                    Cart (
+                        {% if cart_items %}
+                            {{cart_items.all.quantity}}
+                        {% endif %}
+                    )
                 </div>
                 <form action="view-cart/{{user.id}}/" method="get">
                     <button type="submit">View Cart</button>
