@@ -16,6 +16,7 @@ def marketplace(request):
                 cart=apps.get_model('marketplace.Cart').objects.get(user=User.objects.get(id=request.session['user_id']))
             )
             if cart_items:
+                total_quantity = 0
                 user_items = apps.get_model('marketplace.User_Item_Count').objects.filter(user=User.objects.get(id=request.session['user_id']))
                 if user_items:
                     total_carbon_offset = 0
