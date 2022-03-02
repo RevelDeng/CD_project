@@ -114,6 +114,13 @@ def remove_from_cart(request, user_id, item_id):
     cart_item[0].delete()
     return redirect('cart', user_id)
 
+def update_cart(request, user_id, item_id):
+    cart = Cart.objects.get(user=apps.get_model('login_app.User').objects.get(id=user_id))
+    cart_item = Cart_Item_Count.objects.filter(cart=cart, item=Item.objects.get(id=item_id))
+    cart_item[0].quantity = int(request.POST[cart_item.item.name])
+    cart_item[0].save()
+    return redirect('cart', user_id)
+
 # def add_category(request):
 #     errors = Category.objects.validate(request.POST)
 #     if len(errors) > 0:
