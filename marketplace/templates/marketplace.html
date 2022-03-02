@@ -38,13 +38,14 @@
             </div>
             <div id="cart">
                 <div id="cart_counter">
-                    Cart (
+                    <img src="{% static 'cart.png' %}">
+                    Cart: 
                         {% if cart_items %}
                             {{total_quantity}}
                         {% else %}
                             0
                         {% endif %}
-                    )
+                    items
                 </div>
                 <form action="view-cart/{{user.id}}/" method="get">
                     <button type="submit">View Cart</button>
