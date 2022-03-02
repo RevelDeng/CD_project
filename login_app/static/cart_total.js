@@ -4,7 +4,13 @@ import ReactDOM from 'react-dom';
 function cart_total() {
     const [total, setTotal] = useState("")
 
-    return Cart total: {total} items
+    // const updateTotal = () => {
+    //     setTotal(previousState => {
+    //         return {...previousState, total: }
+    //     })
+    // }
+
+    return <p>Cart total: ${total}</p>
 }
 
 ReactDOM.render(
