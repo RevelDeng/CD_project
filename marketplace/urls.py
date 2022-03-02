@@ -10,6 +10,6 @@ urlpatterns = [
     path('marketplace/view-cart/<int:user_id>/', views.view_cart, name="cart"),
     path('marketplace/view-cart/<int:user_id>/buy-items/', views.buy_items),
     path('marketplace/view-cart/<int:user_id>/remove/<int:item_id>/', views.remove_from_cart, name="remove"),
-    path('marketplace/view-cart/<int:user-id>/update/<int:item_id>/', views.update_cart, name="update")
+    # path('marketplace/view-cart/<int:user-id>/update/<int:item_id>/', views.update_cart, name="update")
     # path('admin/admin-page/add-category/', views.add_category)
 ]

@@ -26,11 +26,10 @@
                             Quantity:
                             <input name="{{item.item.name}}" type="number" min="1" max="10" step="1" value="{{item.quantity}}" required>
                         </label>
-                        <!-- <a href="{% url 'update' user.id item.item.id %}">Update</a> -->
                         <a href="{% url 'remove' user.id item.item.id %}">Delete</a>
                     </p>
                 {% endfor %}
-                <p>Cart total: ${{total_cost}}</p>
+                <p id="cart_total">Cart total: ${{total_cost}}</p>
                 <button type="submit">Checkout</button>
             </form>
         </div>
