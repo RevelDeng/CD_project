@@ -41,6 +41,8 @@
                     Cart (
                         {% if cart_items %}
                             {{total_quantity}}
+                            {% else %}
+                                0
                         {% endif %}
                     )
                 </div>
