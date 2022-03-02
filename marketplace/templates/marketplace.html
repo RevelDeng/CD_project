@@ -40,7 +40,7 @@
                 <div id="cart_counter">
                     Cart (
                         {% if cart_items %}
-                            {{cart_items.aggregate(Sum('quantity'))}}
+                            {{total_quantity}}
                         {% endif %}
                     )
                 </div>

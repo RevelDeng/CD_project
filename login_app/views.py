@@ -17,6 +17,8 @@ def marketplace(request):
             )
             if cart_items:
                 total_quantity = 0
+                for item in cart_items:
+                    total_quantity += item.quantity
                 user_items = apps.get_model('marketplace.User_Item_Count').objects.filter(user=User.objects.get(id=request.session['user_id']))
                 if user_items:
                     total_carbon_offset = 0
@@ -27,6 +29,7 @@ def marketplace(request):
                     context = {
                         'items': reversed(shop_items),
                         'cart_items': reversed(cart_items),
+                        'total_quantity': total_quantity,
                         'user': User.objects.get(id=request.session['user_id']),
                         'user_items': user_items,
                         'total_carbon_offset': total_carbon_offset,
