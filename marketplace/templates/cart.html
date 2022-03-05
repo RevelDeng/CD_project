@@ -14,28 +14,28 @@
                 <a href="{% url 'marketplace' %}">Home</a>
                 <a href="logout/">Log Out</a>
             </div>
-        </div>
-        <div>
-            <p class="bold">{{user.first_name}}'s Cart</p>
-            <form action="buy-items/" method="post">
-                {% csrf_token %}
-                {% for item in cart_items %}
-                    <p>
-                        {{item.item.name}}:
-                        <label>
-                            Quantity:
-                            <input name="{{item.item.name}}" type="number" min="1" max="10" step="1" value="{{item.quantity}}" required>
-                        </label>
-                        <a href="{% url 'remove' user.id item.item.id %}">Delete</a>
-                    </p>
-                {% endfor %}
-                <p id="cart_total">Cart total: ${{total_cost}}</p>
-                <button type="submit">Checkout</button>
-                <div id="paypal-button-container"></div>
-            </form>
+            <div>
+                <p class="bold">{{user.first_name}}'s Cart</p>
+                <form action="buy-items/" method="post">
+                    {% csrf_token %}
+                    {% for item in cart_items %}
+                        <p>
+                            {{item.item.name}}:
+                            <label>
+                                Quantity:
+                                <input name="{{item.item.name}}" type="number" min="1" max="10" step="1" value="{{item.quantity}}" required>
+                            </label>
+                            <a href="{% url 'remove' user.id item.item.id %}">Delete</a>
+                        </p>
+                    {% endfor %}
+                    <p id="cart_total">Cart total: ${{total_cost}}</p>
+                    <button id="checkout" type="submit">Checkout</button>
+                    <div id="paypal-button-container"></div>
+                </form>
+            </div>
         </div>
         <!-- Include the PayPal JavaScript SDK -->
-        <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+        <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD&disable-funding=venmo,paylater"></script>
 
         <script>
             // Render the PayPal button into #paypal-button-container
