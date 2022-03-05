@@ -85,6 +85,14 @@ img {
 }
 
 #cart {
-    border: 1px dotted red;
     display: flex;
+    align-items: center;
+    flex-flow: column;
+}
+
+#cart_counter {
+    width: 65%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
