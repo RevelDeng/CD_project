@@ -43,6 +43,7 @@
         <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD&disable-funding=venmo,paylater"></script>
 
         <script>
+            var total = '{{total_cost}}'
             // Render the PayPal button into #paypal-button-container
             paypal.Buttons({
     
@@ -56,7 +57,7 @@
                     return actions.order.create({
                         purchase_units: [{
                             amount: {
-                                value: '88.44'
+                                value: parseFloat(total).toFixed(2)
                             }
                         }]
                     });
