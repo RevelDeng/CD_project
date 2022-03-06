@@ -28,7 +28,6 @@ def marketplace(request):
                         total_cost += item.item.cost * item.orders
                     context = {
                         'items': reversed(shop_items),
-                        'cart_items': reversed(cart_items),
                         'total_quantity': total_quantity,
                         'user': User.objects.get(id=request.session['user_id']),
                         'user_items': user_items,
@@ -39,10 +38,12 @@ def marketplace(request):
                 else:
                     context = {
                         'items': reversed(shop_items),
+                        'total_quantity': total_quantity,
                         'user': User.objects.get(id=request.session['user_id']),
                     }
                     return render(request, 'marketplace.html', context)
             else:
+                total_quantity = 0
                 user_items = apps.get_model('marketplace.User_Item_Count').objects.filter(user=User.objects.get(id=request.session['user_id']))
                 if user_items:
                     total_carbon_offset = 0
@@ -52,6 +53,7 @@ def marketplace(request):
                         total_cost += item.item.cost * item.orders
                     context = {
                         'items': reversed(shop_items),
+                        'total_quantity': total_quantity,
                         'user': User.objects.get(id=request.session['user_id']),
                         'user_items': user_items,
                         'total_carbon_offset': total_carbon_offset,
@@ -61,11 +63,13 @@ def marketplace(request):
                 else:
                     context = {
                         'items': reversed(shop_items),
+                        'total_quantity': total_quantity,
                         'user': User.objects.get(id=request.session['user_id']),
                     }
                     return render(request, 'marketplace.html', context)
         else:
             context = {
+                'total_quantity': total_quantity,
                 'user': User.objects.get(id=request.session['user_id'])
             }
             return render(request, 'marketplace.html', context)
