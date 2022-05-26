@@ -68,6 +68,7 @@ def marketplace(request):
                     }
                     return render(request, 'marketplace.html', context)
         else:
+            total_quantity = 0
             context = {
                 'total_quantity': total_quantity,
                 'user': User.objects.get(id=request.session['user_id'])
